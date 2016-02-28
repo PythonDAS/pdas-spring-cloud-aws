@@ -8,8 +8,6 @@
     <meta http-equiv="Access-Control-Allow-Origin" content="font-src 'self' http://axicon.axisj.com/;">
     <link rel="stylesheet" type="text/css" href="http://axicon.axisj.com/axicon/axicon.css">
     <link rel="stylesheet" type="text/css" href="http://dev.axisj.com/ui/kakao/AXJ.min.css"/>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="http://dev.axisj.com/dist/AXJ.min.js"></script>
     <style>
         html, body {
             margin: 0px;
@@ -32,6 +30,10 @@
         .AXUpload5QueueBox_list .AXUploadItem .AXUploadTit {
             white-space: nowrap;
         }
+
+        #logout {
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +45,7 @@
                 <h1>
                     <i class="axi axi-file"></i> Uploaded list
                 </h1>
+                <button id="logout" type="button">Logout</button>
                 <div id="uploaded-list"></div>
             </div>
         </td>
@@ -90,6 +93,9 @@
     </tr>
 </table>
 
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://dev.axisj.com/dist/AXJ.min.js"></script>
+<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
     var fnObj = {
         pageStart: function () {
@@ -309,8 +315,14 @@
     };
 
     $(document.body).ready(function () {
+        Kakao.init('38e588cbe5f0544831d1dc3541cb0e45');
         fnObj.pageStart();
         fnObj.pageResize();
+        $('#logout').on('click', function () {
+            Kakao.Auth.logout(function () {
+                location.replace("http://devarchi33.pythondas.hompage.s3-website-ap-northeast-1.amazonaws.com");
+            });
+        });
     });
     $(window).resize(function () {
         fnObj.pageResize();
